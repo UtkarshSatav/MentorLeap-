@@ -109,13 +109,9 @@ export default function ServicesSection() {
             MentorLeap provides structured learning programs designed to help professionals achieve confident communication, leadership thinking and enhanced executive presence.
           </p>
 
-          {/* GRID */}
           <div
-            className="grid gap-8"
+            className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
             suppressHydrationWarning
-            style={{
-              gridTemplateColumns: loading || services.length === 0 ? "1fr" : "repeat(3, 1fr)",
-            }}
           >
             {[
               { title: "Executive Coaching", icon: "👔", desc: "Hyper-personalised 1:1 coaching designed for senior professionals, founders and leaders who want to improve public speaking, communication, leadership presence or media readiness." },
@@ -131,7 +127,13 @@ export default function ServicesSection() {
                 onMouseLeave={() => setHovered(null)}
                 style={{
                   background: "rgba(2,6,23,0.9)",
-                  padding: "35px",
+                  padding: "20px",
+                  display: "flex",
+                  flexDirection: "column",
+                  aspectRatio: "1/1",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  textAlign: "center",
                   border: hovered === i
                     ? "1px solid #00e5ff"
                     : "1px solid rgba(255,255,255,0.05)",
@@ -147,14 +149,14 @@ export default function ServicesSection() {
                   transition: `opacity 0.5s ease ${0.2 + i * 0.08}s, transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease`,
                 }}
               >
-                <div className="service-icon-wrap">{s.icon}</div>
+                <div className="service-icon-wrap mb-2" style={{ fontSize: "36px" }}>{s.icon}</div>
                 <h3
-                  className="text-white font-semibold mb-2"
-                  style={{ fontSize: "17px" }}
+                  className="text-white font-semibold mb-2 leading-tight"
+                  style={{ fontSize: "15px" }}
                 >
                   {s.title}
                 </h3>
-                <p className="mb-4" style={{ color: "#94a3b8", fontSize: "14px" }}>
+                <p className="mb-4 line-clamp-3" style={{ color: "#94a3b8", fontSize: "12px", flexGrow: 1 }}>
                   {s.desc}
                 </p>
                 <Link href="/contact" className="service-card-link">

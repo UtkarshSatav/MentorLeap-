@@ -194,7 +194,7 @@ export default function VisionFounder() {
                 className="text-white font-bold mb-4"
                 style={{ fontSize: "46px", lineHeight: "1.2" }}
               >
-                Hi, I’m Mridu Bhandari.
+                Meet the Founder
               </h2>
 
               <p

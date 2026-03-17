@@ -211,9 +211,9 @@ export default function CourseDetailPage() {
                     <h4 className="text-2xl font-black text-white">{course.instructor || "Mridu Bhandari"}</h4>
                     <ShieldCheck size={18} className="text-[#00e5ff]" />
                   </div>
-                  <p className="text-[#00e5ff] text-[10px] font-black uppercase tracking-widest mb-4">Founder, MentorLeap • Certified Executive Presence Coach</p>
+                  <p className="text-[#00e5ff] text-[10px] font-black uppercase tracking-widest mb-4">Founder, MentorLeap</p>
                   <Paragraph className="text-sm opacity-70 mb-6">
-                    With over 15 years of experience in high-stakes communication, {(course.instructor || "Mridu").split(' ')[0]} has mentored 500+ professionals across Google, Amazon, and Fortune 500 startups.
+                    With over 20+ years of experience in high-stakes communication, {(course.instructor || "Mridu").split(' ')[0]} has mentored 500+ professionals across Google, Amazon, and Fortune 500 companies.
                   </Paragraph>
                   <div className="flex gap-6 justify-center md:justify-start">
                     <div className="text-center">

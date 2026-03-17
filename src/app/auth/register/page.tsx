@@ -8,10 +8,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
-import { createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithRedirect, getRedirectResult } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { useAuth } from "@/components/providers/AuthProvider";
 
 export default function SignupPage() {
   const router = useRouter();
+  const { user, loading: authLoading } = useAuth();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -30,24 +32,10 @@ export default function SignupPage() {
   };
 
   React.useEffect(() => {
-    const checkRedirect = async () => {
-      try {
-        const result = await getRedirectResult(auth);
-        if (result) {
-          const user = result.user;
-          try {
-            await syncUserToFirestore(user.uid, user.displayName || "Google User", user.email || "");
-          } catch (e) {
-            console.error("Failed to sync user", e);
-          }
-          router.push('/dashboard');
-        }
-      } catch (err: any) {
-        setError(err.message || "Google Sign-up failed");
-      }
-    };
-    checkRedirect();
-  }, [router]);
+    if (!authLoading && user) {
+      router.push('/dashboard');
+    }
+  }, [user, authLoading, router]);
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,7 +59,14 @@ export default function SignupPage() {
     const provider = new GoogleAuthProvider();
     setLoading(true);
     try {
-      await signInWithRedirect(auth, provider);
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      try {
+        await syncUserToFirestore(user.uid, user.displayName || "Google User", user.email || "");
+      } catch (e) {
+        console.error("Failed to sync user", e);
+      }
+      router.push('/dashboard');
     } catch (err: any) {
       setError(err.message || "Google Sign-up failed");
       setLoading(false);

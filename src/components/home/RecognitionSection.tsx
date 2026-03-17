@@ -2,16 +2,53 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const mediaLogos = ["BBC London", "CNBC-TV18", "Forbes India", "Moneycontrol", "Times Network"];
+const mediaLogos = [
+  { name: "BBC London", id: "bbc", domain: "bbc.com" },
+  { name: "CNBC-TV18", id: "cnbctv18", domain: "cnbctv18.com" },
+  { name: "Forbes India", id: "forbesindia", domain: "forbesindia.com" },
+  { name: "Moneycontrol", id: "moneycontrol", domain: "moneycontrol.com" },
+  { name: "Times Network", id: "timesnetwork", domain: "timesnetwork.in" }
+];
 const awards = [
   "British Chevening Scholar",
   "Ramnath Goenka Award for Excellence in Journalism",
   "Dean’s Award – University College London"
 ];
 const companies = [
-  "Deloitte", "Wipro", "Accenture", "Microsoft", "Infosys", "IBM", 
-  "EY", "PwC", "DataFlow", "HSBC Bank", "Sarita Handa", "Ratan Textiles", "360 One Wealth"
+  { name: "Deloitte", id: "deloitte", domain: "deloitte.com" },
+  { name: "Wipro", id: "wipro", domain: "wipro.com" },
+  { name: "Accenture", id: "accenture", domain: "accenture.com" },
+  { name: "Microsoft", id: "microsoft", domain: "microsoft.com" },
+  { name: "Infosys", id: "infosys", domain: "infosys.com" },
+  { name: "IBM", id: "ibm", domain: "ibm.com" },
+  { name: "EY", id: "ey", domain: "ey.com" },
+  { name: "PwC", id: "pwc", domain: "pwc.com" },
+  { name: "DataFlow", id: "dataflowgroup", domain: "dataflowgroup.com" },
+  { name: "HSBC Bank", id: "hsbc", domain: "hsbc.com" },
+  { name: "Sarita Handa", id: "saritahanda", domain: "saritahanda.com" },
+  { name: "Ratan Textiles", id: "ratantextiles", domain: "ratantextiles.com" },
+  { name: "360 One Wealth", id: "360one", domain: "360.one" }
 ];
+
+function LogoRender({ name, id, heightClass }: { name: string, id: string, heightClass: string }) {
+  const [error, setError] = useState(false);
+
+  return (
+    <div className={`bg-white/95 hover:bg-white rounded-lg px-3 py-1.5 flex items-center justify-center transition-all hover:scale-105 hover:shadow-[0_0_15px_rgba(0,229,255,0.4)] ${heightClass} min-w-[100px] md:min-w-[140px]`}>
+      {error ? (
+        <span className="text-[#020617] font-bold text-sm md:text-base whitespace-nowrap">{name}</span>
+      ) : (
+        <img 
+          src={`/logos/${id}.png`}
+          alt={name}
+          title={name}
+          className={`${heightClass} object-contain mix-blend-multiply w-auto max-w-full`}
+          onError={() => setError(true)}
+        />
+      )}
+    </div>
+  );
+}
 
 function useInView(threshold = 0.1) {
   const ref = useRef<HTMLElement>(null);
@@ -28,47 +65,70 @@ export default function RecognitionSection() {
   const { ref, visible } = useInView();
 
   return (
-    <section ref={ref} className="w-full px-5 py-20 bg-[#020617] text-center overflow-hidden">
-      <div className="max-w-[1200px] mx-auto space-y-24">
-        
-        {/* FEATURED ON */}
-        <div style={{ opacity: visible ? 1 : 0, transition: "opacity 0.8s ease" }}>
-          <h3 className="text-[#94a3b8] text-xs font-black uppercase tracking-[0.3em] mb-10">Featured On</h3>
-          <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16">
-            {mediaLogos.map((logo) => (
-              <span key={logo} className="text-white/40 font-bold text-lg md:text-xl hover:text-[#00e5ff] transition-colors cursor-default whitespace-nowrap">
-                {logo}
-              </span>
-            ))}
+    <>
+      <style>{`
+        @keyframes marqueeX {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .marquee-container {
+          display: flex;
+          overflow: hidden;
+          width: 100%;
+          position: relative;
+          mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+          -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        .marquee-content {
+          display: flex;
+          align-items: center;
+          width: max-content;
+          animation: marqueeX 45s linear infinite;
+        }
+        .marquee-content:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
+      <section ref={ref} className="w-full px-5 py-20 bg-[#020617] text-center overflow-hidden">
+        <div className="max-w-[1200px] mx-auto space-y-24">
+          
+          {/* AWARDS */}
+          <div style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(30px)", transition: "all 0.8s ease" }}>
+            <h3 className="text-[#94a3b8] text-xs font-black uppercase tracking-[0.3em] mb-10">Awards & Recognition</h3>
+            <div className="grid md:grid-cols-3 gap-8">
+              {awards.map((award) => (
+                <div key={award} className="p-8 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-[#00e5ff]/30 transition-all">
+                  <span className="text-3xl mb-4 block">🏆</span>
+                  <p className="text-white font-medium text-sm leading-relaxed">{award}</p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* AWARDS */}
-        <div style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(30px)", transition: "all 0.8s ease 0.2s" }}>
-          <h3 className="text-[#94a3b8] text-xs font-black uppercase tracking-[0.3em] mb-10">Awards & Recognition</h3>
-          <div className="grid md:grid-cols-3 gap-8">
-            {awards.map((award) => (
-              <div key={award} className="p-8 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-[#00e5ff]/30 transition-all">
-                <span className="text-3xl mb-4 block">🏆</span>
-                <p className="text-white font-medium text-sm leading-relaxed">{award}</p>
+          {/* RUNNING LOGOS BLOCK */}
+          <div style={{ opacity: visible ? 1 : 0, transition: "opacity 0.8s ease 0.2s" }}>
+            <h3 className="text-[#94a3b8] text-xs font-black uppercase tracking-[0.3em] mb-10">
+              Featured On & Trusted By
+            </h3>
+            <div className="marquee-container opacity-90 pt-4 pb-4">
+              <div className="marquee-content">
+                {[...mediaLogos, ...companies].map((logo, i) => (
+                  <div key={logo.name + i} className="px-6 md:px-10 flex-shrink-0">
+                    <LogoRender name={logo.name} id={logo.id} heightClass="h-7 md:h-12" />
+                  </div>
+                ))}
+                {/* Duplicate for infinite loop without gaps */}
+                {[...mediaLogos, ...companies].map((logo, i) => (
+                  <div key={logo.name + "-dup-" + i} className="px-6 md:px-10 flex-shrink-0">
+                    <LogoRender name={logo.name} id={logo.id} heightClass="h-7 md:h-12" />
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
-        </div>
 
-        {/* WHERE LEARNERS WORK */}
-        <div style={{ opacity: visible ? 1 : 0, transition: "opacity 0.8s ease 0.4s" }}>
-          <h3 className="text-[#94a3b8] text-xs font-black uppercase tracking-[0.3em] mb-10">Where MentorLeap Learners Work</h3>
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-50">
-            {companies.map((company) => (
-              <span key={company} className="text-white font-semibold text-sm md:text-base hover:text-white transition-colors cursor-default">
-                {company}
-              </span>
-            ))}
-          </div>
         </div>
-
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

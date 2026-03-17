@@ -21,9 +21,9 @@ export default function Home() {
       <JourneySection />
       <MishaSection />
       <IndustrySection />
-      <RecognitionSection />
       <ProgramsSection />
       <ReviewsSection />
+      <RecognitionSection />
       <LaunchSection />
       <CorporateSection />
       <FAQSection />

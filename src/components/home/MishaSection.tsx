@@ -218,24 +218,15 @@ export default function MishaSection() {
               <div className="flex gap-3"><span className="text-[#00e5ff] font-bold">A –</span> <span className="text-[#cbd5f5]">Accelerate your growth</span></div>
             </div>
 
-            {/* FULL FORM */}
-            <h3
-              className="font-medium mb-4"
-              style={{ color: "#00e5ff", fontSize: "16px" }}
-            >
-              Mentorship & Intelligence for Strategic Human Advancement
-            </h3>
+            {/* FULL FORM OMITTED */}
 
-            {/* TYPING */}
-            <h4
-              className="mb-4"
-              style={{ color: "#00e5ff", fontSize: "18px", minHeight: "28px" }}
+            {/* TYPING OMITTED */}
+            <h3
+              className="font-medium mb-4 mt-8"
+              style={{ color: "#00e5ff", fontSize: "18px" }}
             >
-              {typed}
-              {typed.length < TYPING_TEXT.length && (
-                <span className="typing-cursor" />
-              )}
-            </h4>
+              Hi, I'm MISHA — your AI mentor at MentorLeap.
+            </h3>
 
             {/* PARAGRAPHS */}
             <p
