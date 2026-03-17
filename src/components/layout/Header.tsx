@@ -12,7 +12,6 @@ const navLinks = [
   { label: "Live Events", href: "/events" },
   { label: "MentorLeap Studio", href: "/mentorleap-studio" },
   { label: "Hire Mridu as Anchor", href: "/hire-mridu-anchor" },
-  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 

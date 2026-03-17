@@ -14,21 +14,7 @@ const awards = [
   "Ramnath Goenka Award for Excellence in Journalism",
   "Dean’s Award – University College London"
 ];
-const companies = [
-  { name: "Deloitte", id: "deloitte", domain: "deloitte.com" },
-  { name: "Wipro", id: "wipro", domain: "wipro.com" },
-  { name: "Accenture", id: "accenture", domain: "accenture.com" },
-  { name: "Microsoft", id: "microsoft", domain: "microsoft.com" },
-  { name: "Infosys", id: "infosys", domain: "infosys.com" },
-  { name: "IBM", id: "ibm", domain: "ibm.com" },
-  { name: "EY", id: "ey", domain: "ey.com" },
-  { name: "PwC", id: "pwc", domain: "pwc.com" },
-  { name: "DataFlow", id: "dataflowgroup", domain: "dataflowgroup.com" },
-  { name: "HSBC Bank", id: "hsbc", domain: "hsbc.com" },
-  { name: "Sarita Handa", id: "saritahanda", domain: "saritahanda.com" },
-  { name: "Ratan Textiles", id: "ratantextiles", domain: "ratantextiles.com" },
-  { name: "360 One Wealth", id: "360one", domain: "360.one" }
-];
+
 
 function LogoRender({ name, id, heightClass }: { name: string, id: string, heightClass: string }) {
   const [error, setError] = useState(false);
@@ -89,7 +75,7 @@ export default function RecognitionSection() {
           animation-play-state: paused;
         }
       `}</style>
-      <section ref={ref} className="w-full px-5 py-20 bg-[#020617] text-center overflow-hidden">
+      <section ref={ref} className="w-full px-5 pb-24 pt-0 bg-[#020617] text-center overflow-hidden">
         <div className="max-w-[1200px] mx-auto space-y-24">
           
           {/* AWARDS */}
@@ -108,17 +94,17 @@ export default function RecognitionSection() {
           {/* RUNNING LOGOS BLOCK */}
           <div style={{ opacity: visible ? 1 : 0, transition: "opacity 0.8s ease 0.2s" }}>
             <h3 className="text-[#94a3b8] text-xs font-black uppercase tracking-[0.3em] mb-10">
-              Featured On & Trusted By
+              Featured On
             </h3>
             <div className="marquee-container opacity-90 pt-4 pb-4">
-              <div className="marquee-content">
-                {[...mediaLogos, ...companies].map((logo, i) => (
+              <div className="marquee-content" style={{ animationDuration: '25s' }}>
+                {mediaLogos.map((logo, i) => (
                   <div key={logo.name + i} className="px-6 md:px-10 flex-shrink-0">
                     <LogoRender name={logo.name} id={logo.id} heightClass="h-7 md:h-12" />
                   </div>
                 ))}
                 {/* Duplicate for infinite loop without gaps */}
-                {[...mediaLogos, ...companies].map((logo, i) => (
+                {mediaLogos.map((logo, i) => (
                   <div key={logo.name + "-dup-" + i} className="px-6 md:px-10 flex-shrink-0">
                     <LogoRender name={logo.name} id={logo.id} heightClass="h-7 md:h-12" />
                   </div>

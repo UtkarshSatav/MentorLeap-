@@ -41,7 +41,32 @@ export default function HireAnchorPage() {
                 </Reveal>
             </section>
 
-            <section id="booking-form" className="px-5 py-[120px] max-w-[800px] mx-auto">
+            <section className="px-5 py-[80px] max-w-[1200px] mx-auto text-center">
+                <Reveal>
+                    <h3 className="text-3xl font-bold mb-10">Watch Mridu in Action</h3>
+                    <div className="flex overflow-x-auto pb-6 gap-6 scrollbar-hide" style={{ scrollSnapType: 'x mandatory' }}>
+                        {[
+                            "PWTz7eGclu8",
+                            "bZ9BtRfgg6o",
+                            "ZrVv0gkkaMs",
+                            "i5pDykiREPw",
+                            "YkdiS_guFrc"
+                        ].map((id) => (
+                            <iframe
+                                key={id}
+                                className="rounded-xl flex-shrink-0"
+                                src={`https://www.youtube.com/embed/${id}`}
+                                width={360}
+                                height={200}
+                                style={{ border: "none", scrollSnapAlign: 'start', transition: 'transform 0.3s' }}
+                                allowFullScreen
+                            />
+                        ))}
+                    </div>
+                </Reveal>
+            </section>
+
+            <section id="booking-form" className="px-5 py-[80px] max-w-[800px] mx-auto">
                 <Reveal>
                     <Card className="!p-10">
                         <h3 className="text-3xl font-bold mb-2">Event Inquiry</h3>

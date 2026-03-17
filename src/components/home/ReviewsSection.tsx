@@ -18,6 +18,42 @@ function useInView(threshold = 0.1) {
   return { ref, visible };
 }
 
+const companies = [
+  { name: "Deloitte", id: "deloitte", domain: "deloitte.com" },
+  { name: "Wipro", id: "wipro", domain: "wipro.com" },
+  { name: "Accenture", id: "accenture", domain: "accenture.com" },
+  { name: "Microsoft", id: "microsoft", domain: "microsoft.com" },
+  { name: "Infosys", id: "infosys", domain: "infosys.com" },
+  { name: "IBM", id: "ibm", domain: "ibm.com" },
+  { name: "EY", id: "ey", domain: "ey.com" },
+  { name: "PwC", id: "pwc", domain: "pwc.com" },
+  { name: "DataFlow", id: "dataflowgroup", domain: "dataflowgroup.com" },
+  { name: "HSBC Bank", id: "hsbc", domain: "hsbc.com" },
+  { name: "Sarita Handa", id: "saritahanda", domain: "saritahanda.com" },
+  { name: "Ratan Textiles", id: "ratantextiles", domain: "ratantextiles.com" },
+  { name: "360 One Wealth", id: "360one", domain: "360.one" }
+];
+
+function LogoRender({ name, id, heightClass }: { name: string, id: string, heightClass: string }) {
+  const [error, setError] = useState(false);
+
+  return (
+    <div className={`bg-white/95 hover:bg-white rounded-lg px-3 py-1.5 flex items-center justify-center transition-all hover:scale-105 hover:shadow-[0_0_15px_rgba(0,229,255,0.4)] ${heightClass} min-w-[100px] md:min-w-[140px]`}>
+      {error ? (
+        <span className="text-[#020617] font-bold text-sm md:text-base whitespace-nowrap">{name}</span>
+      ) : (
+        <img 
+          src={`/logos/${id}.png`}
+          alt={name}
+          title={name}
+          className={`${heightClass} object-contain mix-blend-multiply w-auto max-w-full`}
+          onError={() => setError(true)}
+        />
+      )}
+    </div>
+  );
+}
+
 function Stars({ count }: { count: number }) {
   return (
     <div style={{ color: "#facc15", fontSize: "15px", marginBottom: "10px" }}>
@@ -130,6 +166,27 @@ export default function ReviewsSection() {
         .summary-animate {
           animation: summaryFadeUp 0.7s ease 0.3s both;
         }
+        @keyframes marqueeX {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .marquee-container {
+          display: flex;
+          overflow: hidden;
+          width: 100%;
+          position: relative;
+          mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+          -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        .marquee-content {
+          display: flex;
+          align-items: center;
+          width: max-content;
+          animation: marqueeX 45s linear infinite;
+        }
+        .marquee-content:hover {
+          animation-play-state: paused;
+        }
       `}</style>
 
       <section
@@ -234,6 +291,28 @@ export default function ReviewsSection() {
               </p>
             </div>
           ))}
+        </div>
+
+        {/* WHERE OUR LEARNERS WORK (COMPANIES) */}
+        <div className="mt-28" style={{ opacity: visible ? 1 : 0, transition: "opacity 0.8s ease 0.4s" }}>
+          <h3 className="text-[#94a3b8] text-xs font-black uppercase tracking-[0.3em] mb-10">
+            Our Learners Work At
+          </h3>
+          <div className="marquee-container opacity-90 pt-4 pb-4">
+            <div className="marquee-content">
+              {companies.map((logo, i) => (
+                <div key={logo.name + i} className="px-6 md:px-10 flex-shrink-0">
+                  <LogoRender name={logo.name} id={logo.id} heightClass="h-7 md:h-12" />
+                </div>
+              ))}
+              {/* Duplicate for infinite loop without gaps */}
+              {companies.map((logo, i) => (
+                <div key={logo.name + "-dup-" + i} className="px-6 md:px-10 flex-shrink-0">
+                  <LogoRender name={logo.name} id={logo.id} heightClass="h-7 md:h-12" />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
     </>

@@ -16,14 +16,14 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <VisionFounder />
       <ServicesSection />
       <JourneySection />
       <MishaSection />
       <IndustrySection />
       <ProgramsSection />
-      <ReviewsSection />
+      <VisionFounder />
       <RecognitionSection />
+      <ReviewsSection />
       <LaunchSection />
       <CorporateSection />
       <FAQSection />

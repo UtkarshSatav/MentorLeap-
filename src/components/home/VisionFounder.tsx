@@ -78,7 +78,7 @@ export default function VisionFounder() {
     tagline: "Transforming professionals into confident communicators and strategic leaders.",
     bio: [
       "After moderating hundreds of leadership forums and corporate conversations, Mridu Bhandari observed a recurring challenge among professionals. Many individuals possess knowledge and expertise but struggle to communicate ideas with clarity, structure and confidence.",
-      "MentorLeap was created to bridge this gap by combining real-world leadership frameworks with MISHA — Mentorship & Intelligence for Strategic Human Advancement. This AI learning companion supports professionals throughout their learning and career journey.",
+      "MentorLeap was created to bridge this gap by combining real-world leadership frameworks with MISHA. This AI learning companion supports professionals throughout their learning and career journey.",
       "The mission of MentorLeap is simple yet powerful: help professionals think clearly, communicate confidently and lead effectively.",
     ],
     stats: defaultStats,
@@ -147,7 +147,7 @@ export default function VisionFounder() {
       <section
         ref={sectionRef}
         className="w-full px-5"
-        style={{ padding: "140px 20px" }}
+        style={{ paddingTop: "140px", paddingBottom: "70px", paddingLeft: "20px", paddingRight: "20px" }}
       >
         <div className="mx-auto" style={{ maxWidth: "1300px" }} suppressHydrationWarning>
 
@@ -254,28 +254,7 @@ export default function VisionFounder() {
             </div>
           </div>
 
-          {/* VIDEO CAROUSEL */}
-          <div
-            className="video-scroll flex overflow-x-auto pb-3"
-            style={{
-              gap: "25px",
-              opacity: visible ? 1 : 0,
-              transform: visible ? "translateY(0)" : "translateY(20px)",
-              transition: "opacity 0.6s ease 0.9s, transform 0.6s ease 0.9s",
-            }}
-          >
-            {(info.videos || []).map((id: string) => (
-              <iframe
-                key={id}
-                className="video-frame rounded-xl"
-                src={`https://www.youtube.com/embed/${id}`}
-                width={360}
-                height={200}
-                style={{ border: "none" }}
-                allowFullScreen
-              />
-            ))}
-          </div>
+
 
         </div>
       </section>
