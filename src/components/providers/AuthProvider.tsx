@@ -31,32 +31,45 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
 
     useEffect(() => {
         let unsubscribeDoc: (() => void) | undefined;
+        let unsubscribeAuth: (() => void) | undefined;
 
-        const unsubscribeAuth = onAuthStateChanged(auth, async (currentUser) => {
-            setUser(currentUser);
+        // Prevent crash if Firebase environment variables are missing
+        if (!auth || !auth.app) {
+            console.warn("Firebase Auth is not initialized. Please configure your Vercel Environment Variables (NEXT_PUBLIC_FIREBASE_API_KEY, etc).");
+            setLoading(false);
+            return;
+        }
 
-            if (currentUser) {
-                // Real-time listener for user document
-                unsubscribeDoc = onSnapshot(doc(db, "users", currentUser.uid), (userDoc) => {
-                    if (userDoc.exists()) {
-                        setUserData(userDoc.data() as User);
-                    } else {
-                        setUserData(null);
-                    }
+        try {
+            unsubscribeAuth = onAuthStateChanged(auth, async (currentUser) => {
+                setUser(currentUser);
+
+                if (currentUser) {
+                    // Real-time listener for user document
+                    unsubscribeDoc = onSnapshot(doc(db, "users", currentUser.uid), (userDoc) => {
+                        if (userDoc.exists()) {
+                            setUserData(userDoc.data() as User);
+                        } else {
+                            setUserData(null);
+                        }
+                        setLoading(false);
+                    }, (error) => {
+                        console.error("Error listening to user data:", error);
+                        setLoading(false);
+                    });
+                } else {
+                    setUserData(null);
                     setLoading(false);
-                }, (error) => {
-                    console.error("Error listening to user data:", error);
-                    setLoading(false);
-                });
-            } else {
-                setUserData(null);
-                setLoading(false);
-                if (unsubscribeDoc) unsubscribeDoc();
-            }
-        });
+                    if (unsubscribeDoc) unsubscribeDoc();
+                }
+            });
+        } catch (err) {
+            console.error("Failed to initialize Firebase Auth listener:", err);
+            setLoading(false);
+        }
 
         return () => {
-            unsubscribeAuth();
+            if (unsubscribeAuth) unsubscribeAuth();
             if (unsubscribeDoc) unsubscribeDoc();
         };
     }, []);
