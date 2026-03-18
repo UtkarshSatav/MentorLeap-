@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { CourseService } from "@/services/courseService";
 import { verifyAdmin } from "@/lib/auth-server";
+import { db } from "@/lib/firebaseAdmin";
 
 export async function GET(req: NextRequest, { params }: any) {
     try {
@@ -10,6 +11,18 @@ export async function GET(req: NextRequest, { params }: any) {
 
         const course = await CourseService.getCourse(id);
         if (!course) return NextResponse.json({ error: "Course not found" }, { status: 404 });
+
+        // Get enrollment count for "first 10 free" logic
+        try {
+            const txSnapshot = await db.collection("transactions")
+                .where("itemId", "==", id)
+                .where("paymentStatus", "==", "success")
+                .count()
+                .get();
+            (course as any).enrollmentCount = txSnapshot.data().count;
+        } catch {
+            (course as any).enrollmentCount = 0;
+        }
 
         return NextResponse.json(course);
     } catch (error: any) {

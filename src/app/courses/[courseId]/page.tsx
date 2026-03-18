@@ -263,7 +263,7 @@ export default function CourseDetailPage() {
                 ))}
               </div>
 
-              {(!course.price || course.price === 0) ? (
+              {(!course.price || course.price === 0 || (course.id === "speak-with-impact-bootcamp" && (course.enrollmentCount || 0) < 10)) ? (
                 <Button
                   fullWidth size="lg"
                   className="h-14 font-black uppercase tracking-[0.2em] shadow-[0_10px_25px_#00e5ff30]"
@@ -295,13 +295,19 @@ export default function CourseDetailPage() {
                     }
                   }}
                 >
-                  Enroll for Free
+                  {course.id === "speak-with-impact-bootcamp" ? `Claim Free Seat (${10 - (course.enrollmentCount || 0)} left!)` : "Enroll for Free"}
                 </Button>
+              ) : (course.id === "speak-with-impact-bootcamp" ? (
+                <a href="https://pages.razorpay.com/SWIbootcamp" className="block w-full">
+                  <Button fullWidth size="lg" className="h-14 font-black uppercase tracking-[0.2em] shadow-[0_10px_25px_#6366f130] bg-gradient-to-r from-[#00e5ff] to-[#6366f1] text-[#020617] border-none">
+                    Secure Your Seat
+                  </Button>
+                </a>
               ) : (
                 <Button fullWidth size="lg" disabled className="h-14 font-black uppercase tracking-[0.2em] bg-white/10 text-white/50 border-none">
                   Enroll (Paid - Coming Soon)
                 </Button>
-              )}
+              ))}
 
               <p className="text-[9px] text-center text-[#475569] font-black uppercase tracking-widest mt-6">
                 🔒 Secure 256-bit SSL Enrollment

@@ -37,7 +37,20 @@ export async function POST(req: NextRequest) {
             const price = courseData.price || 0;
 
             if (price > 0) {
-                return NextResponse.json({ error: `Course requires payment: ${cId}` }, { status: 403 });
+                // Special check for "First 10 people free" logic
+                if (cId === "speak-with-impact-bootcamp") {
+                    const txSnapshot = await db.collection("transactions")
+                        .where("itemId", "==", cId)
+                        .where("paymentStatus", "==", "success")
+                        .count()
+                        .get();
+                    
+                    if (txSnapshot.data().count >= 10) {
+                        return NextResponse.json({ error: "Free spots are fully claimed. Please pay to enroll." }, { status: 403 });
+                    }
+                } else {
+                    return NextResponse.json({ error: `Course requires payment: ${cId}` }, { status: 403 });
+                }
             }
 
             validCourseIds.push(cId);
