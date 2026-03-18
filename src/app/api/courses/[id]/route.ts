@@ -4,7 +4,8 @@ import { verifyAdmin } from "@/lib/auth-server";
 
 export async function GET(req: NextRequest, { params }: any) {
     try {
-        const { id } = params;
+        const routeParams = await params;
+        const { id } = routeParams;
         if (!id) return NextResponse.json({ error: "ID is required" }, { status: 400 });
 
         const course = await CourseService.getCourse(id);
@@ -19,7 +20,8 @@ export async function GET(req: NextRequest, { params }: any) {
 export async function DELETE(req: NextRequest, { params }: any) {
     try {
         await verifyAdmin(req);
-        const { id } = params;
+        const routeParams = await params;
+        const { id } = routeParams;
         await CourseService.deleteCourse(id);
         return NextResponse.json({ success: true });
     } catch (error: any) {
@@ -30,7 +32,8 @@ export async function DELETE(req: NextRequest, { params }: any) {
 export async function PATCH(req: NextRequest, { params }: any) {
     try {
         const decodedToken = await verifyAdmin(req);
-        const { id } = params;
+        const routeParams = await params;
+        const { id } = routeParams;
         const newData = await req.json();
 
         // Log Revision

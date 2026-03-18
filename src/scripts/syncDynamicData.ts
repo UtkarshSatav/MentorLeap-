@@ -12,18 +12,20 @@ async function syncDynamicData() {
   const bootcampCourseId = "speak-with-impact-bootcamp";
   await db.collection("courses").doc(bootcampCourseId).set({
     title: "Speak with Impact Bootcamp",
-    description: "A two-day immersive learning experience designed to help professionals develop confident communication and structured thinking for the modern workplace. Participants will learn practical frameworks to communicate ideas clearly and influence professional conversations.",
-    date: "March 28–29, 2026",
-    time: "7-9 PM IST on both days",
+    description: "Transform the way you speak. Influence the way you lead. A two-day immersive learning experience designed to help professionals develop confident communication and structured thinking for the modern workplace. This bootcamp is designed for one outcome: To help you speak with clarity, confidence, and authority—every single time.",
+    date: "Saturday, 28th March & Sunday, 29th March 2026",
+    time: "7:00 PM – 9:00 PM IST on both days",
     price: 7999,
     highlights: [
-      "How to structure ideas clearly in meetings and presentations",
-      "How to communicate with confidence and authority",
-      "Techniques to get over stage fright & performance anxiety",
-      "How to influence stakeholder discussions and speak with impact",
-      "The Communicator’s Compass for confident conversations",
-      "Body language secrets for enhanced executive presence",
-      "Mridu’s Toolkit for Communication Victory at the workplace"
+      "Speak with Confidence in High-Stakes Moments",
+      "Structure Your Thoughts Like a Leader",
+      "Master Voice, Presence & Delivery",
+      "Tell Stories That Influence & Inspire",
+      "Build Executive Presence (Even on Zoom)",
+      "Speak with Impact Power Phrases Guide",
+      "“Own the Screen” Cheatsheet",
+      "Eye Contact Mastery Guide",
+      "Access to Mentorleap Resources"
     ],
     instructor: "Mridu Bhandari",
     updatedAt: new Date()
@@ -41,20 +43,22 @@ async function syncDynamicData() {
   const bootcampId = "speak-with-impact-bootcamp";
   await db.collection("events").doc(bootcampId).set({
     title: "Speak with Impact Bootcamp",
-    description: "A two-day immersive learning experience designed to help professionals develop confident communication and structured thinking for the modern workplace. Participants will learn practical frameworks to communicate ideas clearly and influence professional conversations.",
+    description: "Transform the way you speak. Influence the way you lead. A two-day immersive learning experience designed to help professionals develop confident communication and structured thinking for the modern workplace. This bootcamp is designed for one outcome: To help you speak with clarity, confidence, and authority—every single time.",
     price: 7999,
-    date: "March 28–29, 2026",
-    time: "7-9 PM IST on both days",
+    date: "Saturday, 28th March & Sunday, 29th March 2026",
+    time: "7:00 PM – 9:00 PM IST on both days",
     speaker: "Mridu Bhandari",
     seats: 50,
     highlights: [
-      "How to structure ideas clearly in meetings and presentations",
-      "How to communicate with confidence and authority",
-      "Techniques to get over stage fright & performance anxiety",
-      "How to influence stakeholder discussions and speak with impact",
-      "The Communicator’s Compass for confident conversations",
-      "Body language secrets for enhanced executive presence",
-      "Mridu’s Toolkit for Communication Victory at the workplace"
+      "Speak with Confidence in High-Stakes Moments",
+      "Structure Your Thoughts Like a Leader",
+      "Master Voice, Presence & Delivery",
+      "Tell Stories That Influence & Inspire",
+      "Build Executive Presence (Even on Zoom)",
+      "Speak with Impact Power Phrases Guide",
+      "“Own the Screen” Cheatsheet",
+      "Eye Contact Mastery Guide",
+      "Access to Mentorleap Resources"
     ],
     offer: "10 participants will receive FREE access to the Bootcamp. The next 50 participants will receive 50 percent discount on the Bootcamp fee.",
     category: "Communication",
